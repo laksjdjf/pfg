@@ -57,11 +57,13 @@ class Script(scripts.Script):
 
     def run(self, p: StableDiffusionProcessing, enable_pfg, tagger_path, pfg_path, input_size, cross_attention_dim, num_tokens, scale, image):
         if enable_pfg:
-            unet = p.sd_model.model.diffusion_model
-            pfg = PFGNetwork(model.model.diffusion_model, input_size, cross_attention_dim, num_tokens)
-            pfg.load_state_dict(torch.load(pfg_path))
-            pfg.requires_grad_(False)
-            pfg.cuda()
+            if self.pfg_path is None:
+                unet = p.sd_model.model.diffusion_model
+                pfg = PFGNetwork(model.model.diffusion_model, input_size, cross_attention_dim, num_tokens)
+                pfg.load_state_dict(torch.load(pfg_path))
+                pfg.requires_grad_(False)
+                pfg.cuda()
+                self.pfg_path = pfg_path
        
             if self.tagger_model is None:
                 self.tagger_model = load_model(tagger_path)
@@ -70,7 +72,7 @@ class Script(scripts.Script):
             hidden_states = infer(image).to(device)
             pfg.set_input(hidden_states * scale)
             result = modules.processing.process_images(p)
-            pfg.reset()
+            #pfg.reset() とすべきだがめんどくさくなってきた。
             
         else:
             result = modules.processing.process_images(p)
