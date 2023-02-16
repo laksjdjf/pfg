@@ -6,7 +6,7 @@
 [wd-v1-4-vit-tagger-v2](https://huggingface.co/SmilingWolf/wd-v1-4-vit-tagger-v2)を使いますので、ダウンロードしてください。直下に直接入れるなりシンボリックリンクしてください。tensorflowのことは何にも分からないので、依存関係も分かりません。tensorflow==2.9.1では動いているようです。
 
 ## 訓練
-bucketing.pyでばけってぃんぐして、latent.pyでれいてんとにして、tagger_control.pyでwd14taggerの埋め込みをげっちゅします。datasetディレクトリにlatent(hoge.npy)とtaggerのemb(hoge.npz)とメタデータ(buckets.json)があればおっけー。
+bucketing.pyでばけってぃんぐして、latent.pyでれいてんとにして、tagger_control.pyでwd14taggerの埋め込みをげっちゅします。datasetディレクトリにlatent(hoge.npy)とtaggerのemb(hoge.npz)とメタデータ(buckets.json)があればおっけー。キャプションデータはいらないです。Image is All You Need（？）
 
 ```
 python3 preprocess/bucketing.py -d <image_directory> -o <dataset_directory> --resolutionとかなんとか 任意
