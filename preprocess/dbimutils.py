@@ -1,10 +1,15 @@
-# これそのままです：https://github.com/toriato/stable-diffusion-webui-wd14-tagger/blob/master/tagger/dbimutils.py
+# これから引用してます：https://github.com/toriato/stable-diffusion-webui-wd14-tagger/blob/master/tagger/dbimutils.py
 # DanBooru IMage Utility functions
 
 import cv2
 import numpy as np
 from PIL import Image
 
+#pil -> cv2に改変：gradio用
+def smart_imread_pil(img:Image, flag=cv2.IMREAD_UNCHANGED):
+    img = img.convert("RGB")
+    img = cv2.cvtColor(np.array(img), cv2.COLOR_RGB2BGR)
+    return img
 
 def smart_imread(img, flag=cv2.IMREAD_UNCHANGED):
     if img.endswith(".gif"):
