@@ -10,13 +10,13 @@ from tensorflow.keras.models import load_model, Model
 
 import argparse
 parser = argparse.ArgumentParser()
-parser.add_argument('--directory', '-d', type=str, required=True)
-parser.add_argument('--output_path', '-o', type=str, required=True)
-parser.add_argument('--start', '-s', required=False, default=0, type=int)
+parser.add_argument('--directory', '-d', type=str, required=True, help="画像があるぱす")
+parser.add_argument('--output_path', '-o', type=str, required=True, help="出力先ぱす")
+parser.add_argument('--start', '-s', required=False, default=0, type=int, help="範囲指定だが、ファイル全て数えあげたうえでの数字なので分かりづらい")
 parser.add_argument('--end', '-e', required=False, type=int)
-parser.add_argument('--image_size', '-i', required=False, default=448, type=int)
-parser.add_argument('--batch_size', '-b', required=False, default=64, type=int)
-parser.add_argument('--threshold', '-t', required=False, default=0.35, type=float)
+parser.add_argument('--image_size', '-i', required=False, default=448, type=int, help="設定するな")
+parser.add_argument('--batch_size', '-b', required=False, default=64, type=int, help="バッチサイズ")
+parser.add_argument('--threshold', '-t', required=False, default=0.35, type=float, help="使ってない")
 args = parser.parse_args()
 
 #WD 1.4 tagger
