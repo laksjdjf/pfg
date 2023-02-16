@@ -30,6 +30,9 @@ python3 main.py \
 ```
 
 --train_unetでたぶんUNetごと学習できます。そのままだとPFGLinearの重みファイルのみが生えてきます。
+
+--pfg_cross_attention_dimはv1は768、v2は1024です。またv_predictionもでるのときは--v_predictionしてください。
+
 学習設定等は全然調査できてません。学習率が特に分からない。
 
 ## Generate
