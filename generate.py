@@ -26,11 +26,12 @@ from tensorflow.keras.models import load_model, Model
 tagger_model = load_model("wd-v1-4-vit-tagger-v2")
 tagger_model = Model(tagger_model.layers[0].input, tagger_model.layers[-3].output) #最終層手前のプーリング層の出力を使う
 
+from preprocess import dbimutils
 def infer(img:Image):
-    img = smart_imread_pil(img)
-    img = smart_24bit(img)
-    img = make_square(img, 448)
-    img = smart_resize(img, 448)
+    img = dbimutils.smart_imread_pil(img)
+    img = dbimutils.smart_24bit(img)
+    img = dbimutils.make_square(img, 448)
+    img = dbimutils.smart_resize(img, 448)
     img = img.astype(np.float32)
     probs = tagger_model(np.array([img]), training=False)
     return torch.tensor(probs.numpy()).unsqueeze(0)
@@ -44,7 +45,7 @@ pipe = StableDiffusionPipeline.from_pretrained(
     torch_dtype=torch.float16,
 ).to(device)
 
-from pfg.pfg import PFGnetwork
+from pfg.pfg import PFGNetwork
 pfg = PFGNetwork(pipe.unet, input_size, cross_attention_dim, num_tokens)
 pfg.load_state_dict(torch.load(pfg_path))
 pfg.requires_grad_(False)
@@ -55,9 +56,9 @@ import gradio as gr
 from datetime import datetime
 
 
-def generate(image,prompt,negative_prompt,scale,width,height,steps,guidance_scale):
+def generate(image,prompt,negative_prompt,image_scale,width,height,steps,guidance_scale):
     hidden_states = infer(image).to(device)
-    pfg.set_input(hidden_states * scale)
+    pfg.set_input(hidden_states * image_scale)
     with torch.autocast("cuda"):
         images = pipe(prompt = prompt,
                       width = width,
