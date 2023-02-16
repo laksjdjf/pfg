@@ -13,9 +13,6 @@ import modules.processing
 from modules.processing import StableDiffusionProcessing
 from tensorflow.keras.models import load_model, Model
 
-class OrgDDIMSampler(ddim.DDIMSampler):
-    pass
-
 class Script(scripts.Script):
     def __init__(self) -> None:
         super().__init__()
