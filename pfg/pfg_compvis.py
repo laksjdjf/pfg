@@ -15,6 +15,7 @@ class PFGNetwork(torch.nn.Module):
         self.input_size = input_size
         self.cross_attention_dim = cross_attention_dim
         self.num_tokens = num_tokens
+        self.enable = True
         
         #inputを入れる
         self.input = None
@@ -43,24 +44,25 @@ class PFGNetwork(torch.nn.Module):
     def _hook_forward(self, org_module):
         prev_forward = org_module.forward
         def forward(x):
-            #(b,1,dim) -> #(b,1,in_dim * tokens) 
-            c = self.pfg_linear(self.input)
-            
-            #(b,1,dim) -> #(b,tokens,in_dim) 
-            c = c.reshape(-1,self.num_tokens,self.cross_attention_dim)
-            
-            #生成時は違う場合が多い、その場合は(uncond+cond)*batchのため2分の1倍する。
-            if x.shape[0] != c.shape[0]:
-                c = c.repeat(x.shape[0] // 2,1,1)
-                
-            #concatenate (b,N,in_dim) + (b,tokens,in_dim)
-            if self.input.shape[0] == x.shape[0]:
-                x = torch.cat([x,c],dim = 1)
-            else: #CFG対応：diffusers pipelineでは(uncond, cond)
-                x_uncond, x_cond = x.chunk(2)
-                x_uncond = torch.cat([x_uncond,x_uncond[:,-1:,:].repeat(1,self.num_tokens,1)],dim=1) #EOSをコピー（これでいいのか知らん）
-                x_cond = torch.cat([x_cond,c],dim = 1) 
-                x = torch.cat([x_uncond,x_cond])
+            if self.enable:
+                #(b,1,dim) -> #(b,1,in_dim * tokens) 
+                c = self.pfg_linear(self.input)
+
+                #(b,1,dim) -> #(b,tokens,in_dim) 
+                c = c.reshape(-1,self.num_tokens,self.cross_attention_dim)
+
+                #生成時は違う場合が多い、その場合は(uncond+cond)*batchのため2分の1倍する。
+                if x.shape[0] != c.shape[0]:
+                    c = c.repeat(x.shape[0] // 2,1,1)
+
+                #concatenate (b,N,in_dim) + (b,tokens,in_dim)
+                if self.input.shape[0] == x.shape[0]:
+                    x = torch.cat([x,c],dim = 1)
+                else: #CFG対応：diffusers pipelineでは(uncond, cond)
+                    x_uncond, x_cond = x.chunk(2)
+                    x_uncond = torch.cat([x_uncond,x_uncond[:,-1:,:].repeat(1,self.num_tokens,1)],dim=1) #EOSをコピー（これでいいのか知らん）
+                    x_cond = torch.cat([x_cond,c],dim = 1) 
+                    x = torch.cat([x_uncond,x_cond])
 
             return prev_forward(x)
         return forward
