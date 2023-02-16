@@ -8,6 +8,12 @@
 ## Train
 bucketing.pyでばけってぃんぐして、latent.pyでれいてんとにして、tagger_control.pyでwd14taggerの埋め込みをげっちゅします。datasetディレクトリにlatent(hoge.npy)とtaggerのemb(hoge.npz)とメタデータ(buckets.json)があればおっけー。
 
+```
+python3 preprocess/bucketing.py -d <image_directory> -o <dataset_directory> --resolutionとかなんとか 任意
+python3 preprocess/latent.py -d <dataset_directory> -o <dataset_directory> -m "<diffusers_model>"
+python3 preprocess/tagger_control.py -d <dataset_directory> -o <dataset_directory>
+```
+
 訓練はこんな感じです。wandbを使うにはwandbのあぴきーが必要です。
 ```
 python3 main.py \
