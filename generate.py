@@ -74,7 +74,7 @@ demo = gr.Interface(
     [gr.Image(type="pil"),
      gr.Textbox(value="illustration of"),
      gr.Textbox(value="worst quality, low quality, medium quality, deleted, lowres, comic, bad anatomy,bad hands, text, error, missing fingers, extra digit, fewer digits, cropped, jpeg artifacts, signature, watermark, username, blurry"),
-     gr.Slider(0,5,value=1,step=0.05),
+     gr.Slider(0,2,value=1,step=0.01,label="pfgの強弱(？)"),
      gr.Slider(256,896,value=640,step=64),
      gr.Slider(256,896,value=896,step=64),
      gr.Slider(0,50,value=50,step=1),
