@@ -78,7 +78,7 @@ demo = gr.Interface(
      gr.Slider(256,896,value=640,step=64),
      gr.Slider(256,896,value=896,step=64),
      gr.Slider(0,50,value=50,step=1),
-     gr.Slider(0,20,value=7,step=0.5)],
+     gr.Slider(0,30,value=11,step=0.5)],
     ["image"],
     title = "タイトル",
     description = "説明",
