@@ -3,7 +3,7 @@
 このリポジトリは自分の訓練コードにPFG機能だけに限定して実装したものです。なんのテストもしていないですが、理論だけ貼ってはい終わりというのはあれなので・・・。60万枚くらいのデータで試そうと思っているので、うまくいったらモデルを公開します。さすがにウマ娘のモデルは破壊力高すぎて公開しづらいので（データセットもかなり黒い）・・・。
 
 # 使い方
-[wd-v1-4-vit-tagger-v2](https://huggingface.co/SmilingWolf/wd-v1-4-vit-tagger-v2)を使いますので、ダウンロードしてください。直下に直接入れるなりシンボリックリンクしてください。
+[wd-v1-4-vit-tagger-v2](https://huggingface.co/SmilingWolf/wd-v1-4-vit-tagger-v2)を使いますので、ダウンロードしてください。直下に直接入れるなりシンボリックリンクしてください。tensorflowのことは何にも分からないので、依存関係も分かりません。tensorflow==2.9.1では動いているようです。
 
 ## 訓練
 bucketing.pyでばけってぃんぐして、latent.pyでれいてんとにして、tagger_control.pyでwd14taggerの埋め込みをげっちゅします。datasetディレクトリにlatent(hoge.npy)とtaggerのemb(hoge.npz)とメタデータ(buckets.json)があればおっけー。
