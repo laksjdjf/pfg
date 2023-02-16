@@ -30,6 +30,7 @@ python3 main.py \
 ```
 
 --train_unetでたぶんUNetごと学習できます。そのままだとPFGLinearの重みファイルのみが生えてきます。
+学習設定等は全然調査できてません。学習率が特に分からない。
 
 ## Generate
 generate.pyの上のほうの5項目をうまくかえて起動してください。
