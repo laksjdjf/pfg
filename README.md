@@ -54,3 +54,7 @@ PFGNetworkの定義やPreprocessコード等：https://github.com/kohya-ss/sd-sc
 WD14Tagger周り：https://github.com/toriato/stable-diffusion-webui-wd14-tagger
 
 compvis版のモジュール書き換え：https://github.com/kousw/stable-diffusion-webui-daam
+
+# 記事
+https://note.com/gcem156/n/ne334e7be9eb7
+
