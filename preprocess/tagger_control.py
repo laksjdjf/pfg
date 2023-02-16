@@ -4,7 +4,7 @@ import sys
 import numpy as np
 import pandas as pd
 from tqdm import tqdm
-from preprocess import dbimutils
+import dbimutils
 
 from tensorflow.keras.models import load_model, Model
 
