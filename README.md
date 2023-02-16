@@ -2,10 +2,10 @@
 　ガイド画像とWD14Taggerを利用して、プロンプトなしで好きなキャラとかを学習・生成する手法です。学習と生成のコードを置いておきます。
 このリポジトリは自分の訓練コードにPFG機能だけに限定して実装したものです。なんのテストもしていないですが、理論だけ貼ってはい終わりというのはあれなので・・・。60万枚くらいのデータで試そうと思っているので、うまくいったらモデルを公開します。さすがにウマ娘のモデルは破壊力高すぎて公開しづらいので（データセットもかなり黒い）・・・。
 
-# Usage
+# 使い方
 [wd-v1-4-vit-tagger-v2](https://huggingface.co/SmilingWolf/wd-v1-4-vit-tagger-v2)を使いますので、ダウンロードしてください。直下に直接入れるなりシンボリックリンクしてください。
 
-## Train
+## 訓練
 bucketing.pyでばけってぃんぐして、latent.pyでれいてんとにして、tagger_control.pyでwd14taggerの埋め込みをげっちゅします。datasetディレクトリにlatent(hoge.npy)とtaggerのemb(hoge.npz)とメタデータ(buckets.json)があればおっけー。
 
 ```
@@ -13,6 +13,8 @@ python3 preprocess/bucketing.py -d <image_directory> -o <dataset_directory> --re
 python3 preprocess/latent.py -d <dataset_directory> -o <dataset_directory> -m "<diffusers_model>"
 python3 preprocess/tagger_control.py -d <dataset_directory> -o <dataset_directory>
 ```
+
+詳しくは``` python hoge.py -h ```で・・・あんまり詳しくないかも。
 
 訓練はこんな感じです。wandbを使うにはwandbのあぴきーが必要です。
 ```
@@ -41,7 +43,7 @@ python3 main.py \
 
 学習設定等は全然調査できてません。学習率が特に分からない。
 
-## Generate
+## 生成
 generate.pyの上のほうの5項目をうまくかえて起動してください。
 
 # 引用りぽ
