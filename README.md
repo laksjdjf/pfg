@@ -49,6 +49,9 @@ generate.pyの上のほうの5項目をうまくかえて起動してくださ�
 # 引用りぽ
 訓練コード全体：https://github.com/harubaru/waifu-diffusion
 
+# 既知の問題
++ gradient_checkpointingがうまく機能していないかも。
+
 PFGNetworkの定義やPreprocessコード等：https://github.com/kohya-ss/sd-scripts
 
 WD14Tagger周り：https://github.com/toriato/stable-diffusion-webui-wd14-tagger
