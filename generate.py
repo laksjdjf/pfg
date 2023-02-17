@@ -55,6 +55,7 @@ device = "cuda"
 pipe = StableDiffusionPipeline.from_pretrained(
     model_id,
     torch_dtype=torch.float16,
+    safety_checker = None,
     custom_pipeline="lpw_stable_diffusion", #なんか知らんがwebui風のプロンプト強調()[]ができるらすい
 ).to(device)
 
