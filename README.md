@@ -46,11 +46,11 @@ python3 main.py \
 ## 生成
 generate.pyの上のほうの5項目をうまくかえて起動してください。
 
-# 引用りぽ
-訓練コード全体：https://github.com/harubaru/waifu-diffusion
-
 # 既知の問題
 + gradient_checkpointingがうまく機能していないかも。
+
+# 引用りぽ
+訓練コード全体：https://github.com/harubaru/waifu-diffusion
 
 PFGNetworkの定義やPreprocessコード等：https://github.com/kohya-ss/sd-scripts
 
