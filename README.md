@@ -44,7 +44,11 @@ python3 main.py \
 学習設定等は全然調査できてません。学習率が特に分からない。
 
 ## 生成
-generate.pyの上のほうの5項目をうまくかえて起動してください。
+```
+python generate.py -m <diffusers_path> -p <pfg_path> -c <768 or 1024> -n <num_tokens>
+```
+
+-sでgradioのshare=Trueになります。
 
 # 既知の問題
 + gradient_checkpointingがうまく機能していないかも。
