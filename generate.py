@@ -49,18 +49,19 @@ def infer(img:Image):
     return torch.tensor(probs.numpy()).unsqueeze(0)
   
 #Stable diffusion モデルのロード
-from diffusers import DiffusionPipeline
+from diffusers import StableDiffusionPipeline
 device = "cuda"
 
-pipe = DiffusionPipeline.from_pretrained(
+pipe = StableDiffusionPipeline.from_pretrained(
     model_id,
     torch_dtype=torch.float16,
     custom_pipeline="lpw_stable_diffusion", #なんか知らんがwebui風のプロンプト強調()[]ができるらすい
 ).to(device)
 
 try:
-    pipe.unet.set_use_memory_efficient_attention_xformers(True)
-    print("apply xformers for unet !!!")
+    pipe.enable_xformers_memory_efficient_attention()
+    pipe.enable_vae_slicing()
+    print("apply xformers!!!")
 except:
     print("cant apply xformers. using normal unet !!!")
 
@@ -94,7 +95,7 @@ demo = gr.Interface(
      gr.Textbox(value="illustration of"),
      gr.Textbox(value="worst quality, low quality, medium quality, deleted, lowres, comic, bad anatomy,bad hands, text, error, missing fingers, extra digit, fewer digits, cropped, jpeg artifacts, signature, watermark, username, blurry"),
      gr.Slider(1,32,value=1,step=1),
-     gr.Slider(0,2,value=1,step=0.01,label="pfgの強弱：ちょっとあげるだけでいい結果にならない"),
+     gr.Slider(0,2,value=1,step=0.01,label="pfgの強弱"),
      gr.Slider(256,896,value=640,step=64),
      gr.Slider(256,896,value=896,step=64),
      gr.Slider(0,50,value=50,step=1),
