@@ -4,6 +4,8 @@
 
 学習済みモデル：https://huggingface.co/furusu/PFG
 
+https://github.com/laksjdjf/sd-trainer/tree/ref の方が訓練はしやすいです（何の説明もないけど）。
+
 # 使い方
 [wd-v1-4-vit-tagger-v2](https://huggingface.co/SmilingWolf/wd-v1-4-vit-tagger-v2)を使いますので、ダウンロードしてください。直下に直接入れるなりシンボリックリンクしてください。tensorflowのことは何にも分からないので、依存関係も分かりません。tensorflow==2.9.1では動いているようです。
 
